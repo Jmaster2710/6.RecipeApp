@@ -16,12 +16,40 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity {
 
-    /*
-    https://www.food2fork.com/api/search?key=5ea9337ef8b72deb2b88b81560d12084&sort=r
-    Dit is de link die ik moet gebruiken om de meest populaire gerechten te krijgen.
-    */
+    @SerializedName("count")
+    @Expose
+    private Integer count;
+    @SerializedName("recipes")
+    @Expose
+    private List<Recipe> recipes = null;
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public List<Recipe> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(List<Recipe> recipes) {
+        this.recipes = recipes;
+    }
+
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -57,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                requestData();
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
@@ -144,5 +173,31 @@ public class MainActivity extends AppCompatActivity {
             // Show 3 total pages.
             return 3;
         }
+    }
+
+
+    //Data collecting
+    private void requestData() {
+        Food2forkApiService service = Food2forkApiService.retrofit.create(Food2forkApiService.class);
+        /**
+         * Make an a-synchronous call by enqueing and definition of callbacks.
+         */
+
+        Call<Recipe> call = service.getRecipes();
+        call.enqueue(new Callback<Recipe>() {
+
+            @Override
+            public void onResponse(Call<Recipe> call, Response<Recipe> response) {
+                Recipe recipe = response.body();
+                //setQuoteTextView(recipe.getText(), number);
+                
+            }
+
+            @Override
+            public void onFailure(Call<Recipe> call, Throwable t) {
+            }
+
+        });
+
     }
 }
