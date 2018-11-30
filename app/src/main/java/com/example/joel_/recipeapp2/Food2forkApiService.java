@@ -18,7 +18,6 @@ public interface Food2forkApiService {
      */
 
     Retrofit retrofit = new Retrofit.Builder()
-
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build();

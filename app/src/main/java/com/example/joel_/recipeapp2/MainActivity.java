@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 requestData();
+                Log.d("testing", "Send request");
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
@@ -180,17 +181,19 @@ public class MainActivity extends AppCompatActivity {
     //Data collecting
     private void requestData() {
         Food2forkApiService service = Food2forkApiService.retrofit.create(Food2forkApiService.class);
-        /**
-         * Make an a-synchronous call by enqueing and definition of callbacks.
-         */
 
-        Call<Recipe> call = service.getRecipes();
-        call.enqueue(new Callback<Recipe>() {
-
+        Call<List<Recipe>> call = service.getRecipes();
+        Log.d("testing", "called the method before this print");
+        call.enqueue(new Callback<List<Recipe>>() {
             @Override
-            public void onResponse(Call<Recipe> call, Response<Recipe> response) {
-                Recipe recipe = response.body();
+            public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
                 Log.d("testing", "info binnen gekregen");
+                setRecipes(response.body());
+                for (int i = 0; i < getRecipes().size(); i++)
+                {
+                    Log.d("testing", getRecipes().get(i).getTitle());
+                }
+
                 Log.d("testing", "Count:" + getCount().toString());
                 Log.d("testing", "Recipes:" + getRecipes().toString());
                 //setQuoteTextView(recipe.getText(), number);
@@ -198,7 +201,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Recipe> call, Throwable t) {
+            public void onFailure(Call<List<Recipe>> call, Throwable t) {
+                Log.d("testing", "Count:" + getCount().toString());
             }
 
         });
