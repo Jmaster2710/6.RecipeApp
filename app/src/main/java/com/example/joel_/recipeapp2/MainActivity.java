@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -189,8 +190,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Recipe> call, Response<Recipe> response) {
                 Recipe recipe = response.body();
+                Log.d("testing", "info binnen gekregen");
+                Log.d("testing", "Count:" + getCount().toString());
+                Log.d("testing", "Recipes:" + getRecipes().toString());
                 //setQuoteTextView(recipe.getText(), number);
-                
+
             }
 
             @Override
