@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.d("testing", "requesting data");
         requestData();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -178,6 +179,10 @@ public class MainActivity extends AppCompatActivity {
 
                 recipes.addAll(Arrays.asList(response.body().recipes));
 
+                for (int i = 0; i < recipes.size(); i++)
+                {
+                    Log.d("testing", "Naam:"+ getRecipes().get(i).getTitle());
+                }
                 Log.d("testing", "Response:"+ response.toString());
                 //setQuoteTextView(recipe.getText(), number);
 
