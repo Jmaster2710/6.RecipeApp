@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -47,7 +49,7 @@ public class FoodFragment extends Fragment {
         //  Bitmap b = BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);
         //  imageView.setImageBitmap( b );
         Glide.with(this)
-                .load(mData.getImage())
+                .load(mData.getImageUrl())
                 .into(imageView);
 
         return rootView;
