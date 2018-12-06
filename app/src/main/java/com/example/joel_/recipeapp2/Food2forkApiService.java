@@ -1,7 +1,5 @@
 package com.example.joel_.recipeapp2;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -9,9 +7,8 @@ import retrofit2.http.GET;
 
 public interface Food2forkApiService {
 
-    String BASE_URL = "https://www.food2fork.com/api/";
+    String BASE_URL = "https://www.food2fork.com/";
     String KEY = "5ea9337ef8b72deb2b88b81560d12084";
-    String SORT = "r";
 
     /**
      * Create a retrofit client.
@@ -24,12 +21,12 @@ public interface Food2forkApiService {
 
 
     //@GET("search?key=" + KEY + "&sort=" + SORT)
-    @GET("https://www.food2fork.com/api/search?key=5ea9337ef8b72deb2b88b81560d12084&sort=r")
+    @GET("api/search?key=5ea9337ef8b72deb2b88b81560d12084&sort=r&count=3")
 
         /*
     https://www.food2fork.com/api/search?key=5ea9337ef8b72deb2b88b81560d12084&sort=r
     Dit is de link die ik moet gebruiken om de meest populaire gerechten te krijgen.
     */
 
-    Call<List<Recipe>> getRecipes();
+    Call<RecipeList> getRecipes();
 }
