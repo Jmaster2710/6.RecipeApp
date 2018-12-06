@@ -40,7 +40,7 @@ public class FoodFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        TextView textView = rootView.findViewById(R.id.food_image);
+        TextView textView = rootView.findViewById(R.id.food_name);
         ImageView imageView = rootView.findViewById(R.id.food_image);
         textView.setText(mData.getTitle());
 
