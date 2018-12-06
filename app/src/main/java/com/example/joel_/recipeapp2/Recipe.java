@@ -1,49 +1,24 @@
 package com.example.joel_.recipeapp2;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Recipe {
+public class Recipe implements Parcelable {
 
-    @SerializedName("publisher")
-    @Expose
-    private String publisher;
-    @SerializedName("f2f_url")
-    @Expose
-    private String f2fUrl;
     @SerializedName("title")
     @Expose
     private String title;
-    @SerializedName("source_url")
-    @Expose
-    private String sourceUrl;
-    @SerializedName("recipe_id")
-    @Expose
-    private String recipeId;
     @SerializedName("image_url")
     @Expose
     private String imageUrl;
-    @SerializedName("social_rank")
-    @Expose
-    private Double socialRank;
-    @SerializedName("publisher_url")
-    @Expose
-    private String publisherUrl;
 
-    public String getPublisher() {
-        return publisher;
-    }
 
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
-    }
-
-    public String getF2fUrl() {
-        return f2fUrl;
-    }
-
-    public void setF2fUrl(String f2fUrl) {
-        this.f2fUrl = f2fUrl;
+    public Recipe (String title, String imageUrl){
+        this.title = title;
+        this.imageUrl = imageUrl;
     }
 
     public String getTitle() {
@@ -54,22 +29,6 @@ public class Recipe {
         this.title = title;
     }
 
-    public String getSourceUrl() {
-        return sourceUrl;
-    }
-
-    public void setSourceUrl(String sourceUrl) {
-        this.sourceUrl = sourceUrl;
-    }
-
-    public String getRecipeId() {
-        return recipeId;
-    }
-
-    public void setRecipeId(String recipeId) {
-        this.recipeId = recipeId;
-    }
-
     public String getImageUrl() {
         return imageUrl;
     }
@@ -78,20 +37,32 @@ public class Recipe {
         this.imageUrl = imageUrl;
     }
 
-    public Double getSocialRank() {
-        return socialRank;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public void setSocialRank(Double socialRank) {
-        this.socialRank = socialRank;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.title);
+        dest.writeString(this.imageUrl);
     }
 
-    public String getPublisherUrl() {
-        return publisherUrl;
+    public Recipe(Parcel in) {
+        this.title = in.readString();
+        this.imageUrl = in.readString();
     }
 
-    public void setPublisherUrl(String publisherUrl) {
-        this.publisherUrl = publisherUrl;
-    }
+    public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
+        @Override
+        public Recipe createFromParcel(Parcel source) {
+            return new Recipe(source);
+        }
+
+        @Override
+        public Recipe[] newArray(int size) {
+            return new Recipe[size];
+        }
+    };
 
 }
